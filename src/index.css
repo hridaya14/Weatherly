@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+  }
+
+
+.Container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 2rem/* 32px */;
+    padding-left: 2rem/* 32px */;
+}
+@media (min-width: 1400px) {
+    .Container {
+        max-width: 1600px;
+    }
+}
+h2{
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    -webkit-text-stroke-width: 1;
+    -webkit-text-stroke-color: #000;
+}
+
+
+
+@media screen and (min-width: 1025px) {
+    .mobile-nav{
+        display:none;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .mobile-nav{
+        position : fixed;
+        display:flex;
+        flex-direction: column;
+        gap: var(--gap , 3rem);
+        inset: 0 0 0 30%;
+        background-color: steelblue;
+        padding : min(20vh , 12rem) 2rem ;
+        background : hsl(0 0% 100% / 0.1);
+        backdrop-filter : blur(2rem);
+    }
+}
+
+.nav{
+    border-radius: 1.5625rem;
+    border: 1px solid #171313;
+    background: linear-gradient(180deg, #09090A 6.25%, #09090A 44.26%, #09090A 44.27%, #09090A 75.52%);
+}
+
+.weather-card{
+    border-radius: 1.5625rem;
+    border: 1px solid #171313;
+    background: linear-gradient(180deg, #1B1C1D 17.71%, rgba(26, 27, 29, 0.00) 77.08%);
+}
+
