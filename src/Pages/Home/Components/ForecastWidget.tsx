@@ -12,7 +12,7 @@ const ForecastWidget = (props:{forecast : forecast | undefined}) => {
                 <span className="text-white text-[2rem]"><h1>Forecast</h1></span>
             </div>
             <div className="flex flex-row gap-6 justify-start overflow-x-scroll">
-                {days?.map((day,index) => {
+                {days?.map((day) => {
                     return(
                         <ForecastCard day = {day}/>
                     )

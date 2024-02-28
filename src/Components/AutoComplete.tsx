@@ -1,7 +1,6 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRecoilState } from 'recoil';
-import { locationState } from '../atoms/index';
+
 
 const Complete = async (value: string) => {
     try {
@@ -17,7 +16,6 @@ const Complete = async (value: string) => {
 
 const AutoComplete = (props: { text: string, handler : Function }) => {
     const [suggestions, setSuggestions] = useState<Array<object>>([]);
-    const [location, setLocation] = useRecoilState(locationState);
 
     useEffect(() => {
         Complete(props.text).then((data) => { setSuggestions(data) });

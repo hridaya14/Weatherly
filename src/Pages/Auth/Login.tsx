@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { Navigate, redirect, useNavigate } from "react-router-dom"
-import { useEffect, useState } from 'react';
+import {  useNavigate } from "react-router-dom"
+import {  useState } from 'react';
 import Cookies from 'js-cookie';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import user from '../../atoms/User';
 
 const Login = () => {
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const navigate = useNavigate();
-  const [username , setUsername] = useRecoilState(user);
+  const setUsername = useSetRecoilState(user);
 
   const handleLogin = async () => {
     try {

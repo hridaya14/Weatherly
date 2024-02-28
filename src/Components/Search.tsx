@@ -1,12 +1,12 @@
 import {useState} from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { locationState } from '../atoms/index';
 import AutoComplete from './AutoComplete';
 
 
 
 const Search = () => {
-    const [location, setLocation] = useRecoilState(locationState);
+    const setLocation = useSetRecoilState(locationState);
     const [value, setValue] = useState<string>('');
     const [isActive , setIsActive] = useState<boolean>(false);
 
