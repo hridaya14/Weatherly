@@ -4,9 +4,9 @@ import { Home, Settings } from "./Pages"
 
 function App() {
   return (
-      <div className=" lg:h-screen lg:overflow-hidden  Container">
+      <div className=" lg:h-screen lg:overflow-y-hidden  Container">
         <Header/>
-        <div className="lg:h-[85vh] my-2 lg:flex">
+        <div className=" h-[85vh] my-2 lg:flex">
           <Navbar/>
           <Routes>
             <Route path={'/'} element={<Home/>}/>

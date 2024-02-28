@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+input:focus {
+    outline:none;
+}
+
 /* custom scrollbar */
 ::-webkit-scrollbar {
     width: 20px;
@@ -77,3 +81,70 @@ h2{
     background: linear-gradient(180deg, #1B1C1D 17.71%, rgba(26, 27, 29, 0.00) 77.08%);
 }
 
+body{
+    font-family: Inter;
+    font-style: normal;
+    line-height: normal;
+}
+
+
+
+@media screen and (min-width: 1024px) {
+    .forecast{
+        border-radius: 1.5625rem;
+        border: 1px solid #171313;
+        background: linear-gradient(237deg, #000 -4.37%, rgba(35, 36, 36, 0.89) 41.76%, #232424 52.9%, rgba(35, 36, 36, 0.81) 75.75%, rgba(35, 36, 36, 0.00) 102.6%);
+        backdrop-filter: blur(50px);
+    }
+    .home{
+        display:grid;
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: "forecast forecast" "nearby nearby";
+    }
+    
+}
+@media screen and (min-width: 1280px) {
+    .home{
+        display:grid;
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: "forecast forecast" "nearby subscribe";
+    }
+    
+}
+
+.forecast{
+    grid-area: forecast;
+    
+}
+
+.nearby{
+    grid-area: nearby;
+}
+
+.subscribe{
+    grid-area: subscribe;
+    
+}
+
+.card{
+    border-radius: 1.875rem;
+    background: #1B1C1E;
+}
+
+.nearby-card{
+    border-radius: 0.9375rem;
+    border: 1px solid #171313;
+    background: linear-gradient(180deg, #1A1B1D 99.99%, rgba(26, 27, 29, 0.00) 100%);
+}
+
+.sub-card{
+    border-radius: 0rem 0rem 0.9375rem 0.9375rem;
+    border: 1px solid #171313;
+    background: #191B1B;
+}
+
+.dropdown{
+    z-index: 999;
+}

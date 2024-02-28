@@ -1,7 +1,7 @@
 const Navbar = () => {
     const logout = () => {};
     return (
-      <div className="hidden nav lg:flex lg:flex-col w-20 justify-between py-6 ">
+      <div className="hidden nav h-[85vh] lg:flex lg:flex-col w-20 justify-between py-6 ">
         <ul className="flex flex-col gap-20 xl:gap-12 items-center">
             <li>
                 <a href = "/"> <img src = "/menu/Logo.svg" className=""></img> </a>

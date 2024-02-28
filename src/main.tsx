@@ -9,7 +9,6 @@ import PrivateRoute from "./Pages/Auth/PrivateRoute"
 import { RecoilRoot } from 'recoil'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
     <RecoilRoot>
       <BrowserRouter>
       <Routes>
@@ -21,7 +20,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </Routes>
       </BrowserRouter>
     </RecoilRoot>
-  </React.StrictMode>,
     
     
 )
