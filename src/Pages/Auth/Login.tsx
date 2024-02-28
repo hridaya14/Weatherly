@@ -2,17 +2,21 @@ import axios from 'axios';
 import { Navigate, redirect, useNavigate } from "react-router-dom"
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-
+import { useRecoilState } from 'recoil';
+import user from '../../atoms/User';
 
 const Login = () => {
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const navigate = useNavigate();
+  const [username , setUsername] = useRecoilState(user);
+
   const handleLogin = async () => {
     try {
       const response = await axios.post("https://weather-forecast-api-production.up.railway.app/user/login",{email,password});
       if(response.status === 200){
         document.cookie = `token=${Cookies.get('token')}; path=/;`;
+        setUsername(response.data.username);
         navigate('/');
       }
     }

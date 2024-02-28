@@ -1,15 +1,14 @@
 
-import { useRecoilState } from 'recoil';
-import { menuState,locationState } from '../atoms/index';
+import { useRecoilValue , useRecoilState } from 'recoil';
+import { menuState ,user } from '../atoms/index';
 import { MobileNav } from '.';
-import { ReactEventHandler, useState } from 'react';
 import Search from './Search';
 
 
 
 const Header = () => {
     const [isOpen, setIsOpen] = useRecoilState(menuState);
-    
+    const username = useRecoilValue(user);
     const toggle = () => {
         setIsOpen(!isOpen);
     };
@@ -20,7 +19,7 @@ const Header = () => {
                 <img src="/avatar.png" className="hidden lg:inline" />
                 <span className="text-white mx-4">
                     <h2 className="text-[0.85rem] lg:text-[0.875rem]">Howdy,</h2>
-                    <h2 className="text-[1.3rem] lg:text-[1.75rem]">Username</h2>
+                    <h2 className="text-[1.3rem] lg:text-[1.75rem]">{username}</h2>
                 </span>
                 <button onClick={toggle} className="z-50">
                     <img src="/menu.png" className="lg:hidden h-8 w-8" />
