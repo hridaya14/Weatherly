@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {  useNavigate } from "react-router-dom"
 import {  useState } from 'react';
-import Cookies from 'js-cookie';
 import { useSetRecoilState } from 'recoil';
 import user from '../../atoms/User';
 
