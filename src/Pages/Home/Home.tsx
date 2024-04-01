@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { WeatherCard, HomeWidget } from "./Components/index";
 import { Loading } from "../../Components/Loading";
@@ -23,7 +23,6 @@ const getCurrentWeather = async (location: string) => {
 
 const getForecast = async (location: string) => {
     try {
-        const token = Cookies.get('token');
         const response = await axios.get(`https://weather-forecast-api-production.up.railway.app/forecast?query=${location}`, {
             headers: {
                 Authorization: `Bearer ${Cookies.get('token')}`

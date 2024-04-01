@@ -27,8 +27,9 @@ const Login = () => {
         expirationDate.setDate(expirationDate.getDate() + 7);
         Cookies.set('token', response.data.token, {
             expires: expirationDate,
-            sameSite: 'strict',
-            secure: true
+            sameSite: 'none',
+            secure: true,
+            http: true
         });
         setAuth(true);
         navigate('/');
