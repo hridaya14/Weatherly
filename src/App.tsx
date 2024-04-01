@@ -7,7 +7,7 @@ import { Loading } from "./Components/Loading"
 function App() {
   return (
     
-      <div className=" lg:h-screen lg:overflow-y-hidden  Container">
+      <div className=" lg:h-screen lg:overflow-y-hidden Container">
         <Header/>
         <Suspense fallback = {<Loading/>}>
         <div className=" h-[85vh] my-2 lg:flex">

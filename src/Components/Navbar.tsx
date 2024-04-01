@@ -1,10 +1,17 @@
-import Cookies from "js-cookie";
-import { redirect } from "react-router-dom";
+import { user, userAuthStatus } from "../atoms/index";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+
+
 const Navbar = () => {
+    const setUser = useSetRecoilState(user);
+    const setAuth = useSetRecoilState(userAuthStatus);
+    const navigate = useNavigate();
     const logout = () => {
-        Cookies.remove("token");
-        redirect("/login");
-    };
+        setUser("");
+        setAuth(false);
+        navigate("/login");
+    }
     return (
       <div className="hidden nav h-[85vh] lg:flex lg:flex-col w-20 justify-between py-6 ">
         <ul className="flex flex-col gap-20 xl:gap-12 items-center">
