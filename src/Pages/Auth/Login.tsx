@@ -15,9 +15,9 @@ const Login = () => {
     try {
       const response = await axios.post("https://weather-forecast-api-production.up.railway.app/user/login",{email,password});
       if(response.status === 200){
-        document.cookie = `token=${Cookies.get('token')}; path=/;`;
         setUsername(response.data.username);
         navigate('/');
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
       }
     }
     catch(err){
