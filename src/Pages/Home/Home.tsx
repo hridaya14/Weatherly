@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { WeatherCard, HomeWidget } from "./Components/index";
 import { Loading } from "../../Components/Loading";
 import { locationState , locationCoordinates } from "@/atoms/Location";

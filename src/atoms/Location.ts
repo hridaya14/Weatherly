@@ -1,9 +1,5 @@
 import {atom} from 'recoil';
 
-type location = {
-    latitude: number;
-    longitude: number;
-}
 
 export const locationState = atom<string>({
     key: 'locationState',
