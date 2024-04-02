@@ -45,9 +45,17 @@ const getForecast = async (location: string) => {
 }
 
 const getNearby = async (coordinates : string) => {
+    const options = {
+        method: 'GET',
+        url: `https://wft-geo-db.p.rapidapi.com/v1/geo/locations/${coordinates}/nearbyPlaces`,
+        params: {radius: '100'},
+        headers: {
+          'X-RapidAPI-Key': 'e28b50c2fdmshb54054470a85504p1f6585jsn52518dfacc2a',
+          'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+        }
+      };
     try {
-        const response = await fetch(`http://geodb-free-service.wirefreethought.com/v1/geo/locations/${coordinates}/nearbyPlaces?limit=5&offset=0&types=CITY&minPopulation=1000000&radius=100`);
-        const data = await response.json();
+        const { data } = await axios.request(options);
 
         if (data.data && data.data.length >= 4) {
             const firstFourCities = data.data.slice(0, 4);
