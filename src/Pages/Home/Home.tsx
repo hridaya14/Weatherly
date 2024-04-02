@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { WeatherCard, HomeWidget } from "./Components/index";
 import { Loading } from "../../Components/Loading";
-import { locationState } from "@/atoms/Location";
+import { locationState , locationCoordinates } from "@/atoms/Location";
 import { NearbyProp, WeatherObject, forecast } from "../../Datatypes/api";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { user } from "@/atoms";
 
+const formatCoordinates = (latitude : number, longitude : number) => {
+    const latDirection = latitude >= 0 ? '+' : '-';
+    const lonDirection = longitude >= 0 ? '+' : '-';
+    const lat = Math.abs(latitude).toFixed(4);
+    const lon = Math.abs(longitude).toFixed(4);
+
+    return `${latDirection}${lat}${lonDirection}${lon}`;
+}
+
 const getCurrentWeather = async (location: string) => {
+    
     try {
         const response = await axios.get(`https://weather-forecast-api-production.up.railway.app/current?query=${location}`, {
             headers: {
@@ -34,17 +44,9 @@ const getForecast = async (location: string) => {
     }
 }
 
-const getNearby = async (location: string) => {
-    const url = `https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${location.split(',')[1]}/regions?sort=isoCode`;
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': 'd2b68aeffbmshb1a62ff83bd6d8dp1597f1jsne0f0fc531a15',
-            'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
-        }
-    };
+const getNearby = async (coordinates : string) => {
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(`http://geodb-free-service.wirefreethought.com/v1/geo/locations/${coordinates}/nearbyPlaces?limit=5&offset=0&types=CITY&minPopulation=1000000&radius=100`);
         const data = await response.json();
 
         if (data.data && data.data.length >= 4) {
@@ -79,12 +81,13 @@ const initializeUser = async () => {
 }
 
 const Home = () => {
-    const location = useRecoilValue(locationState);
     const [weather, setWeather] = useState<WeatherObject>();
     const [forecast, setForecast] = useState<forecast>();
     const [nearby, setNearby] = useState<Array<NearbyProp>>();
     const [loading, setLoading] = useState<boolean>(true);
     const setUser = useSetRecoilState(user);
+    const [locationCoordinate, setLocationCoordinate] = useRecoilState(locationCoordinates);
+    const [locationPermission, setLocationPermission] = useState<boolean>(false);
 
     useEffect(() => {
         setLoading(true);
@@ -100,24 +103,55 @@ const Home = () => {
     }, [setUser]);
 
     useEffect(() => {
+        navigator.permissions.query({ name: 'geolocation' }).then((permissionStatus) => {
+            if (permissionStatus.state === 'granted') {
+                setLocationPermission(true);
+            } else {
+                setLocationPermission(false);
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        if (!locationPermission) {
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                setLocationCoordinate(formatCoordinates(latitude, longitude));
+            },
+            (error) => {
+                console.error('Error getting user location:', error);
+            }
+        );
+    }, [locationPermission, setLocationCoordinate]);
+
+    const [location,setLocation] = useRecoilState(locationState);
+
+    useEffect(() => {
         if (!location) return;
 
         Promise.all([
             getCurrentWeather(location),
             getForecast(location),
-            getNearby(location)
+            getNearby(locationCoordinate)
         ])
         .then(([weatherData, forecastData, nearbyData]) => {
             setWeather(weatherData);
             setForecast(forecastData);
             setNearby(nearbyData);
+            if(location === 'Delhi,IN'){
+                setLocation(nearbyData[0].name + ',' + nearbyData[0].country)
+            }
         })
         .catch((error) => {
             console.error('Error fetching data:', error);
         });
     }, [location]);
 
-    if (loading) {
+    if (loading || !locationPermission) {
         return <Loading />;
     }
 
