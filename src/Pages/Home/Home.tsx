@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { WeatherCard, HomeWidget } from "./Components/index";
 import { Loading } from "../../Components/Loading";
-import { locationState , locationCoordinates } from "@/atoms/Location";
+import { locationState , locationCoordinates, CoordinateType } from "@/atoms/Location";
 import { NearbyProp, WeatherObject, forecast } from "../../Datatypes/api";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -14,8 +14,12 @@ const formatCoordinates = (latitude : number, longitude : number) => {
     const lat = Math.abs(latitude).toFixed(4);
     const lon = Math.abs(longitude).toFixed(4);
 
-    return `${latDirection}${lat}${lonDirection}${lon}`;
-}
+    return {
+        latitude: `${latDirection}${lat}`,
+        longitude: `${lonDirection}${lon}`
+    };
+    }
+
 
 const getCurrentWeather = async (location: string) => {
     
@@ -44,27 +48,21 @@ const getForecast = async (location: string) => {
     }
 }
 
-const getNearby = async (coordinates : string) => {
-    const options = {
-        method: 'GET',
-        url: `https://wft-geo-db.p.rapidapi.com/v1/geo/locations/${coordinates}/nearbyPlaces`,
-        params: {radius: '100'},
-        headers: {
-          'X-RapidAPI-Key': 'e28b50c2fdmshb54054470a85504p1f6585jsn52518dfacc2a',
-          'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
-        }
-      };
+const getNearby = async (coordinates : CoordinateType) => {
+    
+    
     try {
-        const { data } = await axios.request(options);
+                
+        const { data } = await axios.get(`https://nearby-cities.netlify.app/.netlify/functions/search?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`);
 
-        if (data.data && data.data.length >= 4) {
-            const firstFourCities = data.data.slice(0, 4);
+        if (data && data.length >= 4) {
+            const firstFourCities = data.slice(0, 4);
 
             const locations = await Promise.all(firstFourCities.map(async (city: any) => {
                 const weatherData = await getCurrentWeather(city.name);
                 return {
                     name: city.name,
-                    country: city.countryCode,
+                    country: city.country,
                     weather: weatherData
                 };
             }));
@@ -78,6 +76,7 @@ const getNearby = async (coordinates : string) => {
         return [];
     }
 }
+
 
 const initializeUser = async () => {
     const response = await axios.get('https://weather-forecast-api-production.up.railway.app/user/getUsername', {
@@ -114,7 +113,15 @@ const Home = () => {
         navigator.permissions.query({ name: 'geolocation' }).then((permissionStatus) => {
             if (permissionStatus.state === 'granted') {
                 setLocationPermission(true);
-            } else {
+            }
+            else if (permissionStatus.state === 'prompt') {
+                navigator.geolocation.getCurrentPosition(() => {
+                    setLocationPermission(true);
+                }, () => {
+                    setLocationPermission(false);
+                });
+            }
+             else {
                 setLocationPermission(false);
             }
         });
@@ -128,6 +135,7 @@ const Home = () => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;
+                
                 setLocationCoordinate(formatCoordinates(latitude, longitude));
             },
             (error) => {
@@ -151,7 +159,7 @@ const Home = () => {
             setForecast(forecastData);
             setNearby(nearbyData);
             if(location === 'Delhi,IN'){
-                setLocation(nearbyData[0].name + ',' + nearbyData[0].country)
+                nearbyData && setLocation(nearbyData[0].name + ',' + nearbyData[0].country)
             }
         })
         .catch((error) => {

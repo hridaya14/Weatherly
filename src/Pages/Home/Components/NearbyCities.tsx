@@ -14,7 +14,7 @@ const NearbyCities = (props : {nearby : Array<NearbyProp> | undefined}) => {
                 {props.nearby?.map((city) =>  {
                     if (!city || !city.weather) return null; 
                     return(
-                        <div className="flex justify-start nearby-card h-full items-center p-3 lg:w-full min-w-fit" key={city.name}>
+                        <div className="flex justify-start nearby-card h-full items-center p-4 xl:p-6 lg:w-full min-w-fit" key={city.name}>
                             <div className="flex flex-col">
                                 <span className="text-[#919192] text-[1.2rem] 2xl:text-[1.75rem]"><h2>{city.name},{city.country}</h2></span>
                                 <span className="text-[#919192] text-sm"><h2>{city.weather.condition}</h2></span>

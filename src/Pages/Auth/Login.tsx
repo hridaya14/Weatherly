@@ -28,7 +28,6 @@ const Login = () => {
         Cookies.set('token', response.data.token, {
             expires: expirationDate,
             sameSite: 'none',
-            secure: true,
             http: true
         });
         setAuth(true);

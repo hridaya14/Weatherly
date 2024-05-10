@@ -1,5 +1,10 @@
 import {atom} from 'recoil';
 
+export type CoordinateType = {
+    latitude: string,
+    longitude: string,
+
+}
 
 export const locationState = atom<string>({
     key: 'locationState',
@@ -7,8 +12,11 @@ export const locationState = atom<string>({
     });
 
 
-export const locationCoordinates = atom <string>({
+export const locationCoordinates = atom <CoordinateType>({
     key: 'locationCoordinates',
-    default: '+28.6139+077.2090'
+    default: {
+        latitude : '+28.6139',
+        longitude : '+77.2090'
+    }
 })
 
