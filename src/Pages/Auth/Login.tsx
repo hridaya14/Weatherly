@@ -20,7 +20,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("https://weather-forecast-api-production.up.railway.app/user/login",{email,password});
+      const response = await axios.post("https://weather-forecast-api-lo1h.onrender.com/user/login",{email,password});
       if(response.status === 200){
         setUsername(response.data.username);
         const expirationDate = new Date();

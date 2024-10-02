@@ -20,7 +20,7 @@ const Register = () => {
 
     const handleRegister = async () => {
         try {
-            const response = await axios.post("https://weather-forecast-api-production.up.railway.app/user/register",{email,password,username});
+            const response = await axios.post("https://weather-forecast-api-lo1h.onrender.com/user/register",{email,password,username});
             if(response.status === 200){
                 redirect('/login');
             }
