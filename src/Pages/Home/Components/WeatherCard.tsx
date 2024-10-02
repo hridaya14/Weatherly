@@ -58,8 +58,8 @@ const WeatherCard = (props: WeatherProp) => {
             </div>
             <div className='bg-[#1B1C1E] rounded-2xl p-4'>
                 <img src = "sunset.png"></img>
-                <h3 className='text-[#87878B] text-sm'>Sunrise</h3>
-                <h1 className='text-white text-base'>{props.forecast?.days[0].sunrise}</h1>
+                <h3 className='text-[#87878B] text-sm'>Sunset</h3>
+                <h1 className='text-white text-base'>{props.forecast?.days[0].sunset}</h1>
             </div>
         </div>
     );

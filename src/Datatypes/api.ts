@@ -30,6 +30,7 @@ export interface forecast{
 export interface day{
     datetime: string , 
     sunrise: string,
+    sunset : string,
     icon: string,
     temp : string,
     hours: Array<Object>

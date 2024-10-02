@@ -24,7 +24,7 @@ const formatCoordinates = (latitude : number, longitude : number) => {
 const getCurrentWeather = async (location: string) => {
     
     try {
-        const response = await axios.get(`https://weather-forecast-api-production.up.railway.app/current?query=${location}`, {
+        const response = await axios.get(`https://weather-forecast-api-lo1h.onrender.com/current?query=${location}`, {
             headers: {
                 Authorization: `Bearer ${Cookies.get('token')}`
             }
@@ -37,7 +37,7 @@ const getCurrentWeather = async (location: string) => {
 
 const getForecast = async (location: string) => {
     try {
-        const response = await axios.get(`https://weather-forecast-api-production.up.railway.app/forecast?query=${location}`, {
+        const response = await axios.get(`https://weather-forecast-api-lo1h.onrender.com/forecast?query=${location}`, {
             headers: {
                 Authorization: `Bearer ${Cookies.get('token')}`
             }
@@ -79,7 +79,7 @@ const getNearby = async (coordinates : CoordinateType) => {
 
 
 const initializeUser = async () => {
-    const response = await axios.get('https://weather-forecast-api-production.up.railway.app/user/getUsername', {
+    const response = await axios.get('https://weather-forecast-api-lo1h.onrender.com/user/getUsername', {
         headers: {
             Authorization: `Bearer ${Cookies.get('token')}`
         }
