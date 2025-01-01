@@ -74,7 +74,7 @@ const getNearby = async (coordinates: CoordinateType, location: string) => {
 
     // If not cached, make API call
     const response = await axios.get(
-      `http://geodb-free-service.wirefreethought.com/v1/geo/locations/${locationId}/nearbyPlaces`,
+      `https://proxy-umber-psi.vercel.app/api/v1/geo/locations/${locationId}/nearbyPlaces`,
       {
         params: {
           limit: 10, // Number of cities to fetch
