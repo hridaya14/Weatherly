@@ -24,10 +24,10 @@ const Navbar = () => {
                 <a href = "/"> <img src = "/menu/home.png"></img> </a>
             </li>
             <li>
-                <a href = "/"> <img src = "/menu/globe.png"></img> </a>
+                <a href = "/" aria-hidden> <img src = "/menu/globe.png"></img> </a>
             </li>
             <li>
-                <a href = "/"> <img src = "/menu/stats.png"></img> </a>
+                <a href = "/" aria-hidden> <img src = "/menu/stats.png"></img> </a>
             </li>
         </ul>
         <ul className="flex flex-col gap-20 xl:gap-12 items-center">
