@@ -50,7 +50,7 @@ Follow these steps to set up Weatherly locally:
 ### 1️⃣ Clone the Repository  
 
 ```bash
-git clone https://github.com/yourusername/weatherly.git
+git clone https://github.com/hridaya14/weatherly.git
 ```  
 
 ### 2️⃣ Navigate to the Project Directory  
